@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Random;
-
 public class MainActivity extends AppCompatActivity {
 
-    private int TotalScore;
-    private int DiceRollResult;
+    private Dice diceData;
     private TextView DiceResultNumber;
+    private TextView DiceResultNumber1;
+    private TextView DiceResultNumber2;
+
     private TextView TotalScoreNumber;
 
     @Override
@@ -22,44 +22,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DiceResultNumber = findViewById(R.id.diceResultNumber);
+        DiceResultNumber1 = findViewById(R.id.diceResultNumber1);
+        DiceResultNumber2 = findViewById(R.id.diceResultNumber2);
         TotalScoreNumber = findViewById(R.id.totalScoreNumber);
         Button rollDice = findViewById(R.id.rollDice);
 
+        diceData = new Dice();
 
         // I replaced the function with a lambda here but I kept the function body down below
         // and named it appropriately.
-        rollDice.setOnClickListener(view -> {
-            {
-                rollDiceBtnClicked(view);
-            }
-        });
+        rollDice.setOnClickListener(view -> rollDiceBtnClicked(view));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable("diceData", diceData);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        diceData = savedInstanceState.getParcelable("diceData");
+
+        setUiValues();
     }
 
     public void rollDiceBtnClicked(View view) {
-        Random random = new Random();
+        diceData.rollDice();
 
-        int dice1 = random.nextInt(6 - 1 + 1) + 1;
-
-        SetDiceRollResult(dice1);
-        CalculateTotalScore();
-
-        DiceResultNumber.setText(GetDiceRollResult());
-        TotalScoreNumber.setText(GetTotalScore());
+        setUiValues();
     }
 
-    public String GetDiceRollResult() {
-        return String.valueOf(DiceRollResult);
-    }
+    private void setUiValues() {
 
-    public String GetTotalScore() {
-        return String.valueOf(TotalScore);
-    }
+        int[] diceValues = diceData.getDiceValues();
 
-    public void SetDiceRollResult(int val) {
-        DiceRollResult = val;
-    }
+        DiceResultNumber.setText(String.valueOf(diceValues[0]));
+        DiceResultNumber1.setText(String.valueOf(diceValues[1]));
+        DiceResultNumber2.setText(String.valueOf(diceValues[2]));
 
-    public void CalculateTotalScore() {
-        TotalScore += DiceRollResult;
+        TotalScoreNumber.setText(diceData.getTotalScore());
     }
 }

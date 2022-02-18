@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:layout_gravity="center"
+    android:background="@color/aquaish"
     >
 
     <TextView
@@ -11,32 +13,92 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/result_of_dice_roll" />
+        android:text="@string/result_of_dice_roll"
+        android:textColor="@color/weird_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.132" />
+
     <TextView
         android:id="@+id/diceResultNumber"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="21dp"
+        android:layout_height="19dp"
         android:gravity="center"
-        android:layout_marginBottom="200dp" />
+        android:text="@string/_0"
+        android:textColor="@color/weird_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/diceResultNumber2"
+        app:layout_constraintStart_toEndOf="@+id/diceResultNumber1"
+        app:layout_constraintTop_toBottomOf="@+id/diceRollResult"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/diceResultNumber1"
+        android:layout_width="21dp"
+        android:layout_height="19dp"
+        android:gravity="center"
+        android:text="@string/_0"
+        android:textColor="@color/weird_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diceRollResult"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/diceResultNumber2"
+        android:layout_width="21dp"
+        android:layout_height="19dp"
+        android:gravity="center"
+        android:text="@string/_0"
+        android:textColor="@color/weird_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.591"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diceRollResult"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:id="@+id/totalScoreText"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/total_score"
-        android:textsi
-        android:gravity="center"/>
+        android:textColor="@color/weird_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.285" />
+
     <TextView
         android:id="@+id/totalScoreNumber"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="@string/_0"
+        android:textColor="@color/weird_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.334" />
 
     <Button
         android:id="@+id/rollDice"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_margin="150dp"
+        android:gravity="center"
         android:text="@string/roll_the_dice"
-        android:layout_margin="150dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,4 +3,5 @@
     <string name="total_score">Total Score</string>
     <string name="roll_the_dice">Roll The Dice</string>
     <string name="result_of_dice_roll">Result of Dice Roll</string>
+    <string name="_0">0</string>
 </resources>
