@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,57 +11,18 @@
 
     <TextView
         android:id="@+id/diceRollResult"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="338dp"
+        android:layout_height="61dp"
         android:gravity="center"
         android:text="@string/result_of_dice_roll"
         android:textColor="@color/weird_brown"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/rollDice"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132" />
-
-    <TextView
-        android:id="@+id/diceResultNumber"
-        android:layout_width="21dp"
-        android:layout_height="19dp"
-        android:gravity="center"
-        android:text="@string/_0"
-        android:textColor="@color/weird_brown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/diceResultNumber2"
-        app:layout_constraintStart_toEndOf="@+id/diceResultNumber1"
-        app:layout_constraintTop_toBottomOf="@+id/diceRollResult"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/diceResultNumber1"
-        android:layout_width="21dp"
-        android:layout_height="19dp"
-        android:gravity="center"
-        android:text="@string/_0"
-        android:textColor="@color/weird_brown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diceRollResult"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/diceResultNumber2"
-        android:layout_width="21dp"
-        android:layout_height="19dp"
-        android:gravity="center"
-        android:text="@string/_0"
-        android:textColor="@color/weird_brown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.591"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diceRollResult"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreEnhancer"
+        app:layout_constraintVertical_bias="0.276" />
 
     <TextView
         android:id="@+id/totalScoreText"
@@ -69,36 +31,96 @@
         android:gravity="center"
         android:text="@string/total_score"
         android:textColor="@color/weird_brown"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.285" />
-
-    <TextView
-        android:id="@+id/totalScoreNumber"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/_0"
-        android:textColor="@color/weird_brown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="0.956" />
 
     <Button
         android:id="@+id/rollDice"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_margin="150dp"
-        android:gravity="center"
         android:text="@string/roll_the_dice"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/totalScoreText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreEnhancer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_score_enhancer"
+        android:textColor="@color/weird_brown"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/rollDice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.801" />
+
+    <ImageView
+        android:id="@+id/dice1image"
+        android:layout_width="122dp"
+        android:layout_height="108dp"
+        app:layout_constraintBottom_toTopOf="@+id/diceRollResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.215"
+        app:srcCompat="@drawable/die_6" />
+
+    <ImageView
+        android:id="@+id/dice2image"
+        android:layout_width="122dp"
+        android:layout_height="108dp"
+        app:layout_constraintBottom_toTopOf="@+id/scoreEnhancer"
+        app:layout_constraintEnd_toEndOf="@+id/dice3image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.244"
+        app:srcCompat="@drawable/die_6" />
+
+    <ImageView
+        android:id="@+id/dice3image"
+        android:layout_width="122dp"
+        android:layout_height="108dp"
+        app:layout_constraintBottom_toTopOf="@+id/diceRollResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.215"
+        app:srcCompat="@drawable/die_6" />
+
+    <CheckBox
+        android:id="@+id/doublesCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Doubles"
+        app:layout_constraintBottom_toTopOf="@+id/scoreEnhancer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dice2image"
+        app:layout_constraintVertical_bias="0.213" />
+
+    <CheckBox
+        android:id="@+id/triplesCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Triples"
+        app:layout_constraintBottom_toTopOf="@+id/scoreEnhancer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dice3image"
+        app:layout_constraintVertical_bias="0.213" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
