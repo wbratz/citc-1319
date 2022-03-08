@@ -1,8 +1,12 @@
 package com.example.dicegame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,8 +15,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Dice diceData;
+    private DiceManager _diceManager;
     private DiceToImageMapper diceMapper;
+    private DiceGameOptions _diceOptions;
+    private int _score;
 
     private ImageView Dice1Image;
     private ImageView Dice2Image;
@@ -43,42 +49,91 @@ public class MainActivity extends AppCompatActivity {
         DoublesCheckbox = findViewById(R.id.doublesCheckbox);
         TriplesCheckbox = findViewById(R.id.triplesCheckbox);
 
-        diceData = new Dice();
+        _diceManager = new DiceManager();
+        _diceOptions = new DiceGameOptions();
+
         diceMapper = new DiceToImageMapper();
+        setDoubles();
+        setTriples();
 
         // I replaced the function with a lambda here but I kept the function body down below
         // and named it appropriately.
         rollDice.setOnClickListener(view -> rollDiceBtnClicked(view));
+        DoublesCheckbox.setOnClickListener(view -> setDoubles());
+        TriplesCheckbox.setOnClickListener(view -> setTriples());
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_example, menu);
+        return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable("diceData", diceData);
+        outState.putParcelable("diceManager", _diceManager);
+        outState.putInt("score", _score);
+        outState.putParcelable("diceOptions", _diceOptions);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        diceData = savedInstanceState.getParcelable("diceData");
+        _diceManager = savedInstanceState.getParcelable("diceManager");
+        _score = savedInstanceState.getInt("score");
+        _diceOptions = savedInstanceState.getParcelable("diceOptions");
 
-        setUiValues();
+        setUiValues(_diceManager.getLastRoll());
     }
 
-    public void rollDiceBtnClicked(View view) {
-        EvaluateCheckboxStates();
-        diceData.rollDice();
-
-        setUiValues();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.settings:
+                SettingsDialog settingsDialog = new SettingsDialog();
+                settingsDialog.show(getSupportFragmentManager(), "");
+                setDoubles();
+                setTriples();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
-    private void setUiValues() {
+    private void setTriples() {
+        _diceOptions.setTripleEnabled(TriplesCheckbox.isChecked());
+    }
 
-        int[] diceValues = diceData.getDiceValues();
+    private void setDoubles() {
+        _diceOptions.setDoubleEnabled(DoublesCheckbox.isChecked());
+    }
 
-        for (int i = 0; i < diceValues.length; i++) {
-            int mapResult = diceMapper.MapDiceToImage(diceValues[i]);
+    public void setDiceOptions(DiceGameOptions diceOptions) {
+        _diceOptions = diceOptions;
+
+        TriplesCheckbox.setChecked(_diceOptions.getTripleEnabled());
+        DoublesCheckbox.setChecked(_diceOptions.getDoubleEnabled());
+    }
+
+    public DiceGameOptions getDiceOptions() {
+        return _diceOptions;
+    }
+
+    private void rollDiceBtnClicked(View view) {
+        Roll roll = _diceManager.roll(_diceOptions);
+
+        setUiValues(roll);
+    }
+
+    private void setUiValues(Roll roll) {
+
+        int[] rollValues = roll.getRollValues();
+
+        for (int i = 0; i < rollValues.length; i++) {
+            int mapResult = diceMapper.MapDiceToImage(rollValues[i]);
 
             if(mapResult < 1)
                 return;
@@ -91,29 +146,19 @@ public class MainActivity extends AppCompatActivity {
                 Dice3Image.setImageResource(mapResult);
         }
 
-        String scoreEnhancerResult = diceData.getScoreEnhancer();
-
-        ScoreEnhancer.setText("No Score Enhancer");
-
-        if(scoreEnhancerResult.length() > 1)
-        {
-            if(scoreEnhancerResult.length() == 2)
-                ScoreEnhancer.setText("Double +50");
-
-            if(scoreEnhancerResult.length() == 3)
-                ScoreEnhancer.setText("Triple +100");
+        if(roll.getHasTriples()) {
+            ScoreEnhancer.setText(R.string.tripleBonus);
+        }
+        else if(roll.getHasDoubles()) {
+            ScoreEnhancer.setText(R.string.doubleBonus);
+        }
+        else {
+            ScoreEnhancer.setText(R.string.noScore);
         }
 
-        CurrentRollScore.setText("Score this Roll: " + diceData.getCurrentRollScore());
-        TotalScoreNumber.setText("Score: " + diceData.getTotalScore());
-    }
+        _score += roll.getScore();
 
-    private void EvaluateCheckboxStates()
-    {
-        if(DoublesCheckbox.isChecked() != diceData.getDoubles())
-            diceData.toggleDoubles();
-
-        if(TriplesCheckbox.isChecked() != diceData.getTriples())
-            diceData.toggleTriples();
+        CurrentRollScore.setText(String.format("%s%s", getString(R.string.scoreThisRoll)+" ", roll.getScore()));
+        TotalScoreNumber.setText(String.format("Score: %s", _score));
     }
 }

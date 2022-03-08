@@ -5,4 +5,12 @@
     <string name="result_of_dice_roll">Score this roll: 0</string>
     <string name="_0">0</string>
     <string name="no_score_enhancer">No Score Enhancer</string>
+    <string name="noScore">No Score Enhancer</string>
+    <string name="doubleBonus">Double +50</string>
+    <string name="tripleBonus">Triple +100</string>
+    <string name="scoreThisRoll">Score this Roll: </string>
+    <string name="create_new">createNew</string>
+    <string name="file">Title</string>
+    <string name="open">open</string>
+    <string name="settings">Settings</string>
 </resources>
