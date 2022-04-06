@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+
+import java.util.Objects;
 
 public class SettingsDialog extends DialogFragment {
 
@@ -20,15 +23,16 @@ public class SettingsDialog extends DialogFragment {
     private CheckBox _triplesCheckbox;
     private DiceGameOptions _diceOptions;
 
+    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
         _dialogView = inflater.inflate(R.layout.settings_dialog, null);
         builder.setView(_dialogView);
         MainActivity mainActivity = (MainActivity) getActivity();
 
-        initUiComponents(mainActivity);
+        initUiComponents(Objects.requireNonNull(mainActivity));
 
         _cancelButton.setOnClickListener(view -> dismiss());
         _saveButton.setOnClickListener(view -> save(mainActivity));

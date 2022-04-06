@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DiceManager implements Parcelable {
-    private Dice _dice;
+
+    private final Dice _dice;
     private Roll _roll;
 
     public DiceManager() {
@@ -41,11 +42,6 @@ public class DiceManager implements Parcelable {
 
     public Roll roll(DiceGameOptions diceOptions) {
         _roll = _dice.rollDice(diceOptions);
-
-        return _roll;
-    }
-
-    public Roll getLastRoll() {
         return _roll;
     }
 }

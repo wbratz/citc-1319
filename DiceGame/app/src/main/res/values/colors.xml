@@ -11,4 +11,5 @@
     <color name="light_green">#6a9600</color>
     <color name="aquaish">#00988D</color>
     <color name="weird_brown">#ECF5CF</color>
+    <color name="listItemBackground">#334B48</color>
 </resources>

@@ -7,12 +7,13 @@ import android.os.Parcelable;
 import androidx.annotation.RequiresApi;
 
 public class DiceGameOptions implements Parcelable {
+
     private boolean _doubleEnabled;
     private boolean _tripleEnabled;
 
     public DiceGameOptions(){
-        _doubleEnabled = false;
-        _tripleEnabled = false;
+        _doubleEnabled = true;
+        _tripleEnabled = true;
     }
 
     public boolean getDoubleEnabled() {

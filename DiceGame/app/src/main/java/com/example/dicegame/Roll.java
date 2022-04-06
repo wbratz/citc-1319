@@ -7,10 +7,11 @@ import android.os.Parcelable;
 import androidx.annotation.RequiresApi;
 
 public class Roll implements Parcelable {
-    private int[] rollValues;
-    private boolean hasDoubles;
-    private boolean hasTriples;
-    private int score;
+
+    private final int[] rollValues;
+    private final boolean hasDoubles;
+    private final boolean hasTriples;
+    private final int score;
 
     protected Roll(Parcel in) {
         rollValues = in.createIntArray();
@@ -70,8 +71,8 @@ public class Roll implements Parcelable {
     private int calculateRollScore() {
         int rollScore = 0;
 
-        for (int i = 0; i < rollValues.length; i++) {
-            rollScore += rollValues[i];
+        for (int rollValue : rollValues) {
+            rollScore += rollValue;
         }
 
         return rollScore;
